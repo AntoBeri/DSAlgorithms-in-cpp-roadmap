@@ -58,7 +58,39 @@ class LinkedList{
             added->next_node = head;
             head = added;
         }
+
+        Node* search(int target){
+            Node* current = head;
+
+            while(current) {
+                if (current->data == target){
+                    return current;
+                }
+
+                current = current->next_node;
+            }
+
+            return nullptr;
+        }
 };
+
+ostream& operator<<(ostream& os, const LinkedList& list){
+    Node* current = list.head;
+
+    while (current){
+        if (current == list.head){
+            os << "[Head: " << current->data << "]";
+        } else if (!(current->next_node)) {
+            os << " -> [Tail: " << current->data << "]";
+        } else {
+            os << " -> " << current->data;
+        }
+
+        current = current->next_node;
+    }
+
+    return os;
+}
 
 int main(){
     Node a(10);
@@ -74,6 +106,17 @@ int main(){
     l1.add(5);
     cout << l1.is_empty() << "\n";
     l1.size();
+
+    int target = 0;
+    Node* founded = l1.search(target);
+
+    if (founded) {
+        cout << target << " was founded in the node: " << *founded << endl;
+    } else {
+        cout << "Target value not founded in the list." << endl;
+    }
+
+    cout << l1 << endl;
 
     return 0;
 }
